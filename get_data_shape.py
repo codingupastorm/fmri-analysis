@@ -5,7 +5,7 @@ from nilearn import image
 dataset_path = 'ds000244-download'
 
 # Specify the relative path to the first fMRI run
-fmri_file = r'sub-01\ses-00\func\sub-01_ses-00_task-ArchiSocial_acq-ap_bold.nii.gz'
+fmri_file = r'sub-01\ses-00\func\sub-01_ses-00_task-ArchiSpatial_acq-ap_bold.nii.gz'
 
 # Construct the full path to the fMRI file
 fmri_path = os.path.join(dataset_path, fmri_file)

@@ -28,12 +28,16 @@ social_labels = np.ones(social_data_masked.shape[0])
 X = np.vstack((spatial_data_masked, social_data_masked))
 y = np.concatenate((spatial_labels, social_labels))
 
+print("Splitting Data...")
+
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+print("Reshaping Data...")
+
 # Reshape the data to add a single channel dimension
-X_train = X_train.reshape((-1, *spatial_img.shape[:3], 1))
-X_test = X_test.reshape((-1, *spatial_img.shape[:3], 1))
+X_train = X_train.reshape((-1, *mask_img.shape))
+X_test = X_test.reshape((-1, *mask_img.shape))
 
 # Define the CNN model architecture
 model = Sequential()
@@ -47,11 +51,17 @@ model.add(Flatten())
 model.add(Dense(64, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 
+print("Compiling Model...")
+
 # Compile the model
 model.compile(optimizer=Adam(lr=0.001), loss='binary_crossentropy', metrics=['accuracy'])
 
+print("Training Model...")
+
 # Train the model
 model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.1)
+
+print("Evaluating Model...")
 
 # Evaluate the model on the testing set
 loss, accuracy = model.evaluate(X_test, y_test)

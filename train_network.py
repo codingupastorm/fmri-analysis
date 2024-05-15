@@ -50,7 +50,7 @@ model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', m
 print("Training Model...")
 
 # Train the model
-model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.1)
+model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.1)
 
 print("Evaluating Model...")
 
@@ -58,3 +58,10 @@ print("Evaluating Model...")
 loss, accuracy = model.evaluate(X_test, y_test)
 print(f"Test Loss: {loss:.4f}")
 print(f"Test Accuracy: {accuracy:.4f}")
+
+model.save('model1.h5')
+
+for layer in model.layers:
+    print(f"Layer: {layer.name}")
+    print(f"  Weights: {layer.get_weights()}")
+    print()
